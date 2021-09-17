@@ -10,8 +10,10 @@ npm uninstall --save vuex
 yarn add vuex@next
 ```
 
+### Copy .env.sample to .env
+
 ```
-yarn install
+cp .env.sample .env
 ```
 
 
