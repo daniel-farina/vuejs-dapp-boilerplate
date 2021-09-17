@@ -2,6 +2,14 @@
 
 ![screenshot](https://github.com/daniel-farina/vuejs-dapp-boilerplate/blob/main/public/demo.png?raw=true)
 ## Project setup
+
+### Requirements: 
+Install Vuex 4 and remove 3 if you already have it in your system
+```
+npm uninstall --save vuex
+yarn add vuex@next
+```
+
 ```
 yarn install
 ```
