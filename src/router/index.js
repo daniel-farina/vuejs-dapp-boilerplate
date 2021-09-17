@@ -1,10 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-
+//import bridge from '@/components/bridge.vue'
 const routes = [
   {
     path: '/',
     name: 'Home',
+    component: Home
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Home
+  },
+  {
+    path: '/logout',
+    name: 'Logout',
     component: Home
   },
   {

@@ -3,15 +3,98 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <script src="https://i2djs.github.io/I2Djs/dist/i2d.js"></script>
+
   </head>
   <body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
+    <div id="canvas" style="position: absolute;">
+    </div>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+
+  <script>
+    //Fancy animation
+    let sin = Math.sin;
+    let abs = Math.abs;
+    let i = 0;
+    let width = 0;
+    let height = 0;
+    let webglRenderer, pathRef;
+    function render() {
+      webglRenderer = i2d.canvasLayer( "#canvas",
+              { depth: false, antialias: true },
+              { enableEvents: true }
+      );
+      width = webglRenderer.width;
+      height = webglRenderer.height;
+
+      i2d.queue.onRequestFrame(function (t) {
+        draw();
+      });
+    }
+
+    var ii = 0;
+    function draw () {
+      var points = [];
+      var amplitud = height * (sin(i) * 0.1);
+      var space = abs(sin(i) * 0.001 ) * 100 + 150;
+      points[points.length] = {x: -space, y: 0};
+      for (var x = 0; x < width; x += space) {
+        var y = height * (sin(i) * 0.01+0.5);
+        y += sin(i - x * 0.01 + i * 0.1 * 0.5 * -50) * amplitud;
+        y += sin(i + x * 0.02) * amplitud;
+        y += sin(i - x * 0.03 + i * 0.1 * 0.5 * 50) * amplitud;
+        points[points.length] = {x, y};
+      }
+      points[points.length] = {x: width, y: y};
+      points[points.length] = {x: width + space, y:y};
+
+      let path = i2d.Path();
+      path.points(points);
+
+      webglRenderer.createEl({
+        el: "path",
+        attr: {
+          d: path,
+        },
+        style: { strokeStyle: 'hsla(' + ii % 360 + ',100%,'+ '80%, 0.65)' },
+      }).animateTo({
+        duration: 3000,
+        attr:{
+        },
+        end: function () {
+          this.remove();
+        }
+      });
+      i += 0.005;
+      ii += 1;
+    }
+
+    setTimeout(function () {
+      render();
+    }, 500);
+
+  </script>
+
+  <style>
+
+    html, body {
+      width:100%;
+      height:100%;
+
+    }
+
+    #canvas{
+      width:100%;
+      height:100%;
+    }
+
+  </style>
 </html>
