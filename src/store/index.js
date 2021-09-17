@@ -1,8 +1,25 @@
 import { createStore } from 'vuex'
 const ethers = require("ethers");
 
+import {
+  RINKEBY_CONFIG,
+  MAINNET_CONFIG,
+  RESIL_TESTNET_CONFIG,
+  RESIL_MAINNET,
+  NETWORKS
+} from '@/constants/networks.js'
+
+
+//Check network
+const isTestnet = !(process.env.VUE_APP_IS_MAINNET == 'true')
+const resilConfig = isTestnet ? RESIL_TESTNET_CONFIG : RESIL_MAINNET
+const ethConfig = isTestnet ? RINKEBY_CONFIG : ETH_CONFIG
+
 export default createStore({
   state: {
+    isTestnet: isTestnet,
+    resilConfig: resilConfig,
+    ethConfig: ethConfig,
     networkId: null,
     homeProvider:{
     }
@@ -32,6 +49,7 @@ export default createStore({
 
         //Get ChainID
         const chainID = await provider.send("eth_chainId",[]);
+
         //Account Balance
         const homeBalance = await provider.send("eth_getBalance",[account,'latest']);
         //Account Transaction Count
@@ -39,19 +57,10 @@ export default createStore({
         //Account Transaction Count
         const gasPrice = await provider.send("eth_gasPrice",[]);
 
-
-        const networks = [
-          {name:"Resil",value:"0xac"},
-          {name:"Ethereum",value:"0x1"},
-          {name:"Ropsen",value:"0x3"},
-          {name:"Kovan",value:"0x2a"},
-          {name:"Rinkeby",value:"0x4"}
-        ];
-
         //Default network name
         const NETWORK_NAME = {'name': 'Unknown'};
-        //Check if chainID matches one of the network names
-        const network = await networks.find(elem => elem.value === chainID);
+        //Check if networkId matches one of the network names
+        const network = await NETWORKS.find(elem => elem.networkId === chainID);
 
         //If results then use the correct network name
         if (network !== undefined){

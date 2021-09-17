@@ -17,9 +17,9 @@
       <!--Wrong Network Message-->
       <div v-if="!isValidNetwork && isLoggedIn">
         <h3>Wrong network</h3>
-        <p>Please, add and connect the to Resil Chain.</p>
+        <p>Please, add and connect the to {{this.resilConfig.name}}.</p>
         <div class="btn-group" role="group" aria-label="Basic example">
-          <button class="btn btn-sm btn-primary" v-on:click="addChain()"> Connect to Resil</button>
+          <button class="btn btn-sm btn-primary" v-on:click="addChain()"> Connect to {{this.resilConfig.name}}</button>
           <button class="btn btn-sm btn-secondary" v-on:click="disconnect()"> Disconnect</button>
 
         </div>
@@ -196,18 +196,24 @@
        */
       async addChain(){
         const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+
+        //Please  note that this.resilConfig is a computed property which then queries
+        // the store to get the resil configuration based on the .env VUE_APP_IS_MAINNET true
         const networkData = {
-          chainId: '0xAC',
-          chainName: 'Resil',
+          chainId: this.resilConfig.networkId,
+          chainName: this.resilConfig.name,
           nativeCurrency: {
-            name: 'LUSD',
-            symbol: 'LUSD',
-            decimals: 18,
+            name: this.resilConfig.nativeCurrency.name,
+            symbol: this.resilConfig.nativeCurrency.symbol,
+            decimals: this.resilConfig.nativeCurrency.decimals,
           },
-          rpcUrls: ['https://rpc.latam-blockchain.com'],
-          blockExplorerUrls: ['https://google.com/'],
-          iconUrls: ['https://gblobscdn.gitbook.com/spaces%2F-MendG3CmDhj8SU5cDta%2Favatar-1626514264309.png?alt=media'],
+          rpcUrls: [this.resilConfig.rpc],
+          blockExplorerUrls: [this.resilConfig.explorer],
+          iconUrls: [this.resilConfig.iconUrls],
         };
+
+        console.log("NETWORK")
+        console.log(networkData)
 
         try {
           // wasAdded is a boolean. Like any RPC method, an error may be thrown.
@@ -252,6 +258,9 @@
     computed: {
       homeProvider() {
         return this.$store.state.homeProvider;
+      },
+      resilConfig() {
+        return this.$store.state.resilConfig;
       },
       chainId() {
         return this.$store.state.homeProvider.chainID;

@@ -123,29 +123,5 @@ nav {
   overflow: hidden;
 }
 
-/*.bk::before, .bk::after {*/
-/*  content: "";*/
-/*  width: 414px;*/
-/*  height: 324px;*/
-/*  background-size: 414px 324px;*/
-/*  background-image:url("https://bridge.xdaichain.com/static/media/background.b22ed625.png");*/
-
-/*  background-repeat: no-repeat;*/
-/*  position: absolute;*/
-/*  z-index: 1;*/
-/*}*/
-/*.bk::before {*/
-/*  bottom: 0px;*/
-/*  left: 0px;*/
-/*}*/
-
-/*.bk::after {*/
-/*  top: 0px;*/
-/*  right: 0px;*/
-/*  transform: rotate(*/
-/*   180deg*/
-/*  );*/
-/*}*/
-
 
 </style>
