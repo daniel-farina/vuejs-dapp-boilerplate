@@ -33,6 +33,11 @@
           <button class="btn btn-sm btn-primary" v-on:click="addToken()"> Add Stake Token</button>
               <div class="p-4"> <b>Provider's Data</b></div>
               <div>{{homeProvider}}</div>
+
+              <div class="p-4"> <b>Ethereum Network</b></div>
+              <div>{{ethConfig}}</div>
+              <div class="p-4"> <b>Home Network</b></div>
+              <div>{{resilConfig}}</div>
         </div>
 
         <button class="btn btn-sm btn-primary" v-on:click="disconnect()"> Disconnect</button>
@@ -213,7 +218,6 @@
         };
 
         console.log("NETWORK")
-        console.log(networkData)
 
         try {
           // wasAdded is a boolean. Like any RPC method, an error may be thrown.
@@ -258,6 +262,9 @@
     computed: {
       homeProvider() {
         return this.$store.state.homeProvider;
+      },
+      ethConfig() {
+        return this.$store.state.ethConfig;
       },
       resilConfig() {
         return this.$store.state.resilConfig;

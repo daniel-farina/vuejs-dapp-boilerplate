@@ -23,7 +23,7 @@
               <div v-if="isLoggedIn">
                 <div class="btn-group" role="group" aria-label="Basic example">
                   <a type="button" class="btn btn-primary" alt="{{homeProvider.account}}">{{shortAccount}}</a>
-                  <a type="button" class="btn btn-primary">{{homeProvider.netWorkName}}</a>
+                  <a type="button" class="btn btn-primary">{{homeProvider.networkName}}</a>
                 </div>
               </div>
               <div v-else>

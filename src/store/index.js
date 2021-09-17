@@ -69,7 +69,7 @@ export default createStore({
 
         let homeData = {
           chainID: chainID,
-          netWorkName: NETWORK_NAME.name,
+          networkName: NETWORK_NAME.name,
           account: account,
           homeBalance: homeBalance,
           transactionCount: transactionCount,

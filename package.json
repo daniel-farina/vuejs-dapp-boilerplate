@@ -11,8 +11,6 @@
     "@metamask/onboarding": "^1.0.1",
     "@popperjs/core": "^2.10.1",
     "bootstrap": "^5.1.1",
-
-    "check-internet-connected": "^2.0.5",
     "core-js": "^3.6.5",
     "ethers": "^5.4.6",
     "i": "^0.3.6",
